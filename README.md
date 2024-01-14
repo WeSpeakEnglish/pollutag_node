@@ -3,7 +3,7 @@ The LoraWAN node for air quatity monitoring based on STM32WLE and SEN54 Sensirio
 868 Mhz LoRaWAN node for continuous air quality monitoring
 SEN54 connected via I2C2 interface.
 decoder for payload on server side:
-´´´
+```
  function Decoder(bytes, port, uplink_info) {
     var decoded = {};
     decoded.PM1 = (bytes[0]*256 +  bytes[1])/10.0;
@@ -19,4 +19,4 @@ decoder for payload on server side:
     decoded.FREQUENCY = normalizedPayload.frequency;
     return decoded;
  }
-´´´
+```
