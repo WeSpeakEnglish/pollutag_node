@@ -66,9 +66,7 @@ uint8_t PM_measure_flag = 1;
 
 uint8_t pmSensStatus = 0x00;
 
-const uint8_t SHT40_cmd = 0xFD;
-const uint8_t SHT40_addr = 0x44;
-volatile uint8_t SHT40_dataRX[6] = {0,0,0,0,0,0};
+static int counter = 0;
 
 /* USER CODE END PV */
 
@@ -216,7 +214,7 @@ sen5x_stop_measurement();
 void MeasurePM_sens(void){
     int16_t a_humidity;
     int16_t a_temperature;
-    int16_t nox_index;
+    uint16_t nox_index;
 
     sen5x_read_measured_values(
         &PM1, &PM2_5,
@@ -229,28 +227,43 @@ void MeasurePM_sens(void){
 }
 
 
+#define V_TRESHOLD 91
 
  void HAL_LPTIM_CompareMatchCallback(LPTIM_HandleTypeDef *hlptim)
 {
-	static int counter = 0;
+
+	static char first_start = 1;
+
 
    if (hlptim == &hlptim1)
    {
-
       switch(counter){
+      case 9:
+    	  if(first_start){
+    		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_9, GPIO_PIN_SET);
+    		  first_start = 0;
+    	  }
+    	  else{
+    		  if(extBattery > V_TRESHOLD)
+    		  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_9, GPIO_PIN_SET);
+    	  }
+    	  break;
       case 10:
     		  F1_push(EnablePM_sens);
     	  break;
       case 70:
     		  F1_push(MeasurePM_sens);
     	  break;
-      case 71:
+      case 74:
     		  F1_push(DisablePM_sens);
+    	  break;
+      case 75:
+    	  	  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_9, GPIO_PIN_RESET);
     	  break;
 
       }
       counter++;
-      counter %= 90;
+      counter %= 1800;
    }
 }
 

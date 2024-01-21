@@ -82,8 +82,8 @@ all: main-build
 main-build: polluTAG_home.elf secondary-outputs
 
 # Tool invocations
-polluTAG_home.elf polluTAG_home.map: $(OBJS) $(USER_OBJS) D:\PRJ\pollutag_home\STM32WLE5JCIX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "polluTAG_home.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"D:\PRJ\pollutag_home\STM32WLE5JCIX_FLASH.ld" -Wl,-Map="polluTAG_home.map" -Wl,--gc-sections -Wl,--verbose -static  -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+polluTAG_home.elf polluTAG_home.map: $(OBJS) $(USER_OBJS) D:\PRJ\pollutag_node\STM32WLE5JCIX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "polluTAG_home.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"D:\PRJ\pollutag_node\STM32WLE5JCIX_FLASH.ld" -Wl,-Map="polluTAG_home.map" -Wl,--gc-sections -Wl,--verbose -static  -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

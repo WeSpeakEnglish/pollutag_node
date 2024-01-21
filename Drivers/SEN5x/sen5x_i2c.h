@@ -161,7 +161,7 @@ int16_t sen5x_read_measured_values(uint16_t* mass_concentration_pm1p0,
                                    uint16_t* mass_concentration_pm10p0,
                                    int16_t* ambient_humidity,
                                    int16_t* ambient_temperature,
-                                   int16_t* voc_index, int16_t* nox_index);
+                                   uint16_t* voc_index, uint16_t* nox_index);
 
 /**
  * sen5x_read_measured_raw_values() - Returns the measured raw values.

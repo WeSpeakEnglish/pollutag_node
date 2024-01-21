@@ -31,6 +31,7 @@
 #include "lora_info.h"
 #include "LmHandler.h"
 #include "adc_if.h"
+#include "CayenneLpp.h"
 #include "sys_sensors.h"
 #include "flash_if.h"
 
